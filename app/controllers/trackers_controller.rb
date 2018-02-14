@@ -1,4 +1,14 @@
+
 class TrackersController < ApplicationController
+
+  def info
+    ups = ActiveShipping::UPS.new(login: ENV["UPS_login_email"], password: ENV["UPS_login_password"], key: ENV["UPS_API"], account: ENV["UPS_Account"])
+    tracking_info = ups.find_tracking_info('tracking-number', carrier_code: 'ups_ground') # Ground package
+
+    tracking_info.shipment_events.each do |event|
+      puts "#{event.name} at #{event.location.city}, #{event.location.state} on #{event.time}. #{event.message}"
+    end
+  end
 
   def index
     @packages = Tracker.all
