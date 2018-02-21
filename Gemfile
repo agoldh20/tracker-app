@@ -21,6 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'active_shipping'
 gem 'figaro'
 gem 'tracking_number', '~> 1.0', '>= 1.0.3'
+gem 'google-cloud-vision'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
