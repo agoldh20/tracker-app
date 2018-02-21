@@ -1,8 +1,11 @@
-
 class TrackersController < ApplicationController
 
   def tracking_info
       ActiveShipping::UPS.new(login: ENV["UPS_login_email"], password: ENV["UPS_login_password"], key: ENV["UPS_API"], account: ENV["UPS_Account"])
+  end
+
+  def image_text_recognition
+    x = Net::HTTP.post_form(URI.parse('https://vision.googleapis.com/v1/images:annotate?key=ENV["google_API"]')
   end
 
   def index
