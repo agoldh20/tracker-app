@@ -1,0 +1,5 @@
+<h1>Input Tracking Number:</h1>
+<%= form_tag '/packages', method: :post do %>
+  <input type="text" name="tracking_number" value="<%= @package.tracking_number %>" placeholder="Tracking Number">
+  <input type="submit" value="Submit">
+<% end %>

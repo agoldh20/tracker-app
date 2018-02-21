@@ -1,1 +1,11 @@
-index.html.erb
+<h1><strong>Amazon Return Tracker</strong></h1>
+
+<%= link_to "Add New", "/packages/new" %><br>
+<ul>
+
+<% @packages.each do |package| %>
+  <li>Tracking Number: <a href="/packages/<%= package.id %>"><%= package.tracking_number %></a>
+  -- Status: <%= @ups.find_tracking_info(package.tracking_number).params["Shipment"]["Package"]["Activity"][0]["Status"]["StatusType"]["Description"] %>
+  </li>
+<% end %>
+</ul>

@@ -10,21 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214031241) do
+ActiveRecord::Schema.define(version: 20180220161824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "trackers", force: :cascade do |t|
     t.string "tracking_number"
-    t.string "name"
-    t.string "street"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
+    t.string "return_city"
+    t.string "return_state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status"
   end
 
 end

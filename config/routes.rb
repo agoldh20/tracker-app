@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+   get '/' => 'trackers#index'
+
+   get '/packages/new' => 'trackers#new'
+   post '/packages' => 'trackers#create'
+
+   get '/packages/:id' => 'trackers#show'
+
+   delete '/packages/:id' => 'trackers#destroy'
 end

@@ -1,17 +1,13 @@
 
 class TrackersController < ApplicationController
 
-  def info
-    ups = ActiveShipping::UPS.new(login: ENV["UPS_login_email"], password: ENV["UPS_login_password"], key: ENV["UPS_API"], account: ENV["UPS_Account"])
-    tracking_info = ups.find_tracking_info('tracking-number', carrier_code: 'ups_ground') # Ground package
-
-    tracking_info.shipment_events.each do |event|
-      puts "#{event.name} at #{event.location.city}, #{event.location.state} on #{event.time}. #{event.message}"
-    end
+  def tracking_info
+      ActiveShipping::UPS.new(login: ENV["UPS_login_email"], password: ENV["UPS_login_password"], key: ENV["UPS_API"], account: ENV["UPS_Account"])
   end
 
   def index
     @packages = Tracker.all
+    @ups = tracking_info
   end
 
   def new
@@ -19,17 +15,18 @@ class TrackersController < ApplicationController
   end
 
   def create
-    @@package = Tracker.create(
-                               tracking_number: params[:tracking_number],
-                               name: params[:name],
-                               street: params[:street],
-                               city: params[:city],
-                               state: params[:state],
-                               zip: params[:zip]
-                               )
+    @ups = tracking_info
+    @package = Tracker.create(tracking_number: params[:tracking_number])
+    @package.save
+    return_city = @ups.find_tracking_info(@package.tracking_number).params["Shipment"]["ShipTo"]["Address"]["City"]
+    return_state = @ups.find_tracking_info(@package.tracking_number).params["Shipment"]["ShipTo"]["Address"]["StateProvinceCode"]
+    @package.update(return_city: return_city, return_state: return_state) 
+    @package.save
+    redirect_to "/"
   end
 
   def show
+    @ups = tracking_info
     @package = Tracker.find(params[:id])
   end
 
@@ -41,17 +38,15 @@ class TrackersController < ApplicationController
     @package = Tracker.find(params[:id])
     @package.update(
                     tracking_number: params[:tracking_number],
-                    name: params[:name],
-                    street: params[:street],
-                    city: params[:city],
-                    state: params[:state],
-                    zip: params[:zip]
+                    return_city: params[:return_city],
+                    return_state: params[:return_state]
                     )
   end
 
-  def delete
+  def destroy
     @package = Tracker.find(params[:id])
     @package.destroy
+    redirect_to '/'
   end
 
 end

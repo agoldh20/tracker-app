@@ -18,7 +18,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-gem 'active_shipping', '~> 2.1', '>= 2.1.1'
+gem 'active_shipping'
 gem 'figaro'
 gem 'tracking_number', '~> 1.0', '>= 1.0.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

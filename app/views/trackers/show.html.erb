@@ -1,1 +1,6 @@
-show.html.erb
+<h2><strong><%= @package.tracking_number %></strong></h2>
+<h2><strong>Return Location:</strong> <%= @package.return_city %>, <%= @package.return_state %></h2>
+<h2><strong>Status:</strong> <%= @ups.find_tracking_info(@package.tracking_number).params["Shipment"]["Package"]["Activity"][0]["Status"]["StatusType"]["Description"] %></h2>
+<h2><strong>Expeded Delivery Date:</strong> Coming Soon...</h2>
+
+<%= link_to "Delete", "/packages/#{ @package.id }", method: :delete %>
