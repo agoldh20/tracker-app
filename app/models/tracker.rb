@@ -12,7 +12,4 @@ class Tracker < ApplicationRecord
     "latitude: #{latitude}, longitude: #{longitude}"
   end
 
-  def tracking_info
-      ActiveShipping::UPS.new(login: ENV["UPS_login_email"], password: ENV["UPS_login_password"], key: ENV["UPS_API"], account: ENV["UPS_Account"])
-  end
 end
