@@ -28,7 +28,7 @@ class TrackersController < ApplicationController
     @package.save
     ups_info = @ups.find_tracking_info(@package.tracking_number).params["Shipment"]
     current_city = ups_info["Package"]["Activity"][0]["ActivityLocation"]["Address"]["City"]
-    current_state = ups_info["Package"]["Activity"][0]["ActivityLocation"]["Address"]["State"]
+    current_state = ups_info["Package"]["Activity"][0]["ActivityLocation"]["Address"]["StateProvinceCode"]
     return_city = ups_info["ShipTo"]["Address"]["City"]
     return_state = ups_info["ShipTo"]["Address"]["StateProvinceCode"]
     @package.update(return_city: return_city, return_state: return_state, current_city: current_city, current_state: current_state) 
